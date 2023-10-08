@@ -24,7 +24,7 @@ public:
 };
 
 
-class DBLinkedList //양방향 연결리스트 객체
+class OurSet //양방향 연결리스트 객체
 {
 public:
 	Node* head;
@@ -34,7 +34,7 @@ public:
 };
 
 
-typedef DBLinkedList List;
+typedef OurSet List;
 
 void ListInit(List* plist); //양방향 연결리스트 초기화
 
@@ -56,6 +56,7 @@ void list_copy(List* plist, Node* source_ptr, Node* head_ptr, Node* tail_ptr);
 //list_length, list_search, list_locate, list_head_insert, list_insert, list_head_remove,
 //list_remove, list_clear, and list_copy
 
+void show_contents(List* plist, int* value);
 
 #endif
 

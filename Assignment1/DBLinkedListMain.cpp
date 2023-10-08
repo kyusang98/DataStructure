@@ -16,6 +16,9 @@ int main()
     list_head_insert(&list,5);list_head_insert(&list,6);
     list_head_insert(&list,7);list_head_insert(&list,8);
     list_head_insert(&list, 9);list_head_insert(&list, 10);
+    //구현하려는 리스트에는 중복된 요소를 허용하지 않는다.
+    list_head_insert(&list, 1);list_head_insert(&list, 2);
+
     printf("연결 리스트의 원소는 %d개 입니다.\n", list.numOfData);
 
     //머리 부분 데이터 삭제
@@ -25,29 +28,8 @@ int main()
     list_remove(&list, list.head);
 
     //저장된 데이터의 조회
-    if (LFirst(&list, &data))
-    {
-        
-        //printf("%d\n", list.head->data);
-        //printf("%d\n", list.cur->data);
-        //printf("%d\n", list.head->next->data);
-        //printf("%d\n", list.cur->next->data);
+    show_contents(&list, &data);
 
-        //오른쪽 노드로 이동하며 데이터 조회
-        printf("리스트를 오른쪽으로 조회합니다.\n");
-        printf("%d", data);
-        while (LNext(&list, &data))
-            printf("%d", data);
-        printf("\n");
-
-        //왼쪽 노드로 이동하며 데이터 조회
-        printf("리스트를 왼쪽으로 조회합니다.\n");
-        printf("%d", data);
-        while (LPrevious(&list, &data))
-            printf("%d", data);
-
-        printf("\n\n");
-    }
 
     //연결리스트 길이 구하기
     printf("연결리스트의 길이는 %d입니다.\n", list_length(&list));
@@ -77,26 +59,10 @@ int main()
    
     printf("복사한 리스트의 원소는 %d개 입니다.\n", list_copied.numOfData);
 
-    
-    if (LFirst(&list_copied, &data))
-    {
+    //저장된 데이터의 조회
+    show_contents(&list_copied,&data);
 
-        //오른쪽 노드로 이동하며 데이터 조회
-        printf("리스트를 오른쪽으로 조회합니다.\n");
-        printf("%d", data);
-        while (LNext(&list_copied, &data))
-            printf("%d", data);
-        printf("\n");
-
-        //왼쪽 노드로 이동하며 데이터 조회
-        printf("리스트를 왼쪽으로 조회합니다.\n");
-        printf("%d", data);
-        while (LPrevious(&list_copied, &data))
-            printf("%d", data);
-
-        printf("\n\n");
-    }
-
+    //리스트 삭제하기
     list_clear(&list_copied, list_copied.head);
     printf("삭제된 리스트의 길이는 %d입니다.", list_copied.numOfData);
 

@@ -34,7 +34,7 @@ Node* Node::Llink_show()//왼쪽 노드 주소값 반환
 }
 
 //DBLinkList객체의 메서드
-void DBLinkedList::set_link(Node* new_link)// 현재 가리키는 노드 세팅
+void OurSet::set_link(Node* new_link)// 현재 가리키는 노드 세팅
 {
 	cur = new_link;
 }
@@ -52,58 +52,67 @@ void ListInit(List* plist)
 //머리 부분에 데이터 삽입
 void list_head_insert(List* plist, Data entry)
 {
-	if (plist->head == NULL)
+	if (list_search(plist, entry) == NULL)
 	{
-		Node* head_ptr;
-		head_ptr = new Node;
-		head_ptr->set_data(entry);
-		head_ptr->set_Rlink(NULL);
-		head_ptr->set_Llink(NULL);
-		plist->head = head_ptr;
-		plist->cur = head_ptr;
-		(plist->numOfData)++;
+		if (plist->head == NULL)
+		{
+			Node* head_ptr;
+			head_ptr = new Node;
+			head_ptr->set_data(entry);
+			head_ptr->set_Rlink(NULL);
+			head_ptr->set_Llink(NULL);
+			plist->head = head_ptr;
+			plist->cur = head_ptr;
+			(plist->numOfData)++;
+		}
+		else
+		{
+			Node* head_ptr;
+			head_ptr = new Node;
+			head_ptr->set_data(entry);
+			head_ptr->set_Rlink(plist->head);
+			head_ptr->set_Llink(NULL);
+			plist->head->prev = head_ptr;
+			plist->head = head_ptr;
+			plist->cur = head_ptr;
+			(plist->numOfData)++;
+		}
 	}
 	else
-	{
-		Node* head_ptr;
-		head_ptr = new Node;
-		head_ptr->set_data(entry);
-		head_ptr->set_Rlink(plist->head);
-		head_ptr->set_Llink(NULL);
-		plist->head->prev = head_ptr;
-		plist->head = head_ptr;
-		plist->cur = head_ptr;
-		(plist->numOfData)++;
-	}
-
+		printf("%d는 이미 존재하는 요소입니다.\n", entry);
 }
 
 //previous_ptr바로 다음에 삽입
 void list_insert(List* plist,Node *previous_ptr, Data entry)
 {
-	if (plist->head != NULL)
+	if (list_search(plist, entry)==NULL)
 	{
-		plist->cur = previous_ptr;
-		Node* insert_ptr;
-		insert_ptr = new Node;
-		insert_ptr->set_data(entry);
-		insert_ptr->set_Llink(plist->cur);
-		if (plist->cur->next != NULL)
+		if (plist->head != NULL)
 		{
-			insert_ptr->set_Rlink(plist->cur->next);
-			plist->cur->next->set_Llink(insert_ptr);
+			plist->cur = previous_ptr;
+			Node* insert_ptr;
+			insert_ptr = new Node;
+			insert_ptr->set_data(entry);
+			insert_ptr->set_Llink(plist->cur);
+			if (plist->cur->next != NULL)
+			{
+				insert_ptr->set_Rlink(plist->cur->next);
+				plist->cur->next->set_Llink(insert_ptr);
+			}
+			else
+			{
+				insert_ptr->set_Rlink(NULL);
+			}
+			plist->cur->set_Rlink(insert_ptr);
+			(plist->numOfData)++;
 		}
 		else
 		{
-			insert_ptr->set_Rlink(NULL);
+			list_head_insert(plist, entry);
 		}
-		plist->cur->set_Rlink(insert_ptr);
-		(plist->numOfData)++;
 	}
 	else
-	{
-		list_head_insert(plist, entry);
-	}
+		printf("%d는 이미 존재하는 요소입니다.\n", entry);
 }
 
  Node* list_search(List* plist, const Data& target) //특정값을 찾는다.
@@ -243,4 +252,26 @@ void list_copy(List* plist, Node* source_ptr, Node* head_ptr, Node* tail_ptr)
 		source_ptr = source_ptr->Rlink_show();
 	}
 	
+}
+
+void show_contents(List* plist, int* value)
+{
+	if (LFirst(plist, value))
+	{
+
+		//오른쪽 노드로 이동하며 데이터 조회
+		printf("리스트를 오른쪽으로 조회합니다.\n");
+		printf("%d", *value);
+		while (LNext(plist, value))
+			printf("%d", *value);
+		printf("\n");
+
+		//왼쪽 노드로 이동하며 데이터 조회
+		printf("리스트를 왼쪽으로 조회합니다.\n");
+		printf("%d", *value);
+		while (LPrevious(plist, value))
+			printf("%d", *value);
+
+		printf("\n\n");
+	}
 }
