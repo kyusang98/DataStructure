@@ -1,0 +1,6 @@
+﻿  InfixToPostfix.cpp
+C:\Users\mspc\Desktop\후위 수식 변환기_복사본\Assignment2\Assignment2\InfixToPostfix.cpp(66,13): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\mspc\Desktop\후위 수식 변환기_복사본\Assignment2\Assignment2\InfixToPostfix.cpp(143,13): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  PostfixMain.cpp
+  코드를 생성하고 있습니다...
+  Assignment2.vcxproj -> C:\Users\mspc\Desktop\후위 수식 변환기_복사본\Assignment2\x64\Debug\Assignment2.exe
